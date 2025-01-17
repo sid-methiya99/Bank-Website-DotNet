@@ -39,14 +39,14 @@
     <StaticWebAssetEndpoint Include="_content/BankManagementSystem/css/styles.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\styles.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KKcpcVnzYGYpNqqx02Ox7duDobyUJDTRW7kFk5VZJwc="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"34317"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KKcpcVnzYGYpNqqx02Ox7duDobyUJDTRW7kFk5VZJwc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 17 Jan 2025 19:47:14 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-X5jBNDC5iCVv0gofgYiUYgxVH1Q8m\u002BFuwb\u002BfG//jmyg="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"35496"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022X5jBNDC5iCVv0gofgYiUYgxVH1Q8m\u002BFuwb\u002BfG//jmyg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 17 Jan 2025 20:26:14 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/BankManagementSystem/css/styles.wy4oc38iop.css">
+    <StaticWebAssetEndpoint Include="_content/BankManagementSystem/css/styles.j3yr7v7cwz.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\styles.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"wy4oc38iop"},{"Name":"integrity","Value":"sha256-KKcpcVnzYGYpNqqx02Ox7duDobyUJDTRW7kFk5VZJwc="},{"Name":"label","Value":"_content/BankManagementSystem/css/styles.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"34317"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KKcpcVnzYGYpNqqx02Ox7duDobyUJDTRW7kFk5VZJwc=\u0022"},{"Name":"Last-Modified","Value":"Fri, 17 Jan 2025 19:47:14 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j3yr7v7cwz"},{"Name":"integrity","Value":"sha256-X5jBNDC5iCVv0gofgYiUYgxVH1Q8m\u002BFuwb\u002BfG//jmyg="},{"Name":"label","Value":"_content/BankManagementSystem/css/styles.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"35496"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022X5jBNDC5iCVv0gofgYiUYgxVH1Q8m\u002BFuwb\u002BfG//jmyg=\u0022"},{"Name":"Last-Modified","Value":"Fri, 17 Jan 2025 20:26:14 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BankManagementSystem/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

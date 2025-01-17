@@ -16,10 +16,27 @@
                     </div>
                     <div class="hidden md:flex items-center space-x-12">
                         <a href="/" class="text-xl text-gray-700 hover:text-indigo-600">Home</a>
-                        <a href="/Account/Dashboard" class="text-xl text-gray-700 hover:text-indigo-600">Accounts</a>
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a href="/Account/Dashboard" class="text-xl text-gray-700 hover:text-indigo-600">Dashboard</a>
+                        }
                         <a href="/AboutUs" class="text-xl text-gray-700 hover:text-indigo-600">About Us</a>
                         <a href="/services" class="text-xl text-gray-700 hover:text-indigo-600">Services</a>
                         <a href="/contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-6">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <form method="post" action="/Account/Logout" class="inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="text-xl text-gray-700 hover:text-indigo-600">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a href="/Account/Login" class="text-xl text-gray-700 hover:text-indigo-600">Login</a>
+                            <a href="/Account/Register" class="text-xl bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">Register</a>
+                        }
                     </div>
                 </div>
             </div>

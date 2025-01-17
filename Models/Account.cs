@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace BankManagementSystem.Models
 {
@@ -7,31 +8,35 @@ namespace BankManagementSystem.Models
     {
         [Key]
         public int Id { get; set; }
-        
+
         [Required]
-        [StringLength(12)]
+        [ForeignKey("User")]
+        public string UserId { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(50)]
         public string AccountNumber { get; set; } = string.Empty;
-        
+
         [Required]
+        [StringLength(100)]
         public string AccountHolderName { get; set; } = string.Empty;
-        
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Balance { get; set; }
-        
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        
+
         [Required]
         public AccountType AccountType { get; set; }
 
-        // New fields
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Balance { get; set; }
+
+        [Required]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
         public string? Branch { get; set; }
         public string? IFSC { get; set; }
         public bool IsActive { get; set; } = true;
-        
+
         // Navigation property
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
     }
 
     public enum AccountType
