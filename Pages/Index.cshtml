@@ -1,0 +1,133 @@
+﻿@page
+@using BankManagementSystem.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="bg-indigo-600 text-white">
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-5xl font-extrabold sm:text-6xl md:text-7xl">
+                Banking Solutions for Everyone
+            </h1>
+            <p class="mt-6 text-2xl max-w-3xl mx-auto">
+                Manage your finances with our secure and user-friendly banking system. Get started today!
+            </p>
+            <div class="mt-8">
+                <a href="/Account/Create" class="inline-flex items-center px-8 py-4 border border-transparent text-xl font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                    Open an Account
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-indigo-600 mb-4">
+                <svg class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">Savings Accounts</h3>
+            <p class="text-gray-600 text-lg">Grow your savings with competitive interest rates and secure banking solutions.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-indigo-600 mb-4">
+                <svg class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">Current Accounts</h3>
+            <p class="text-gray-600 text-lg">Perfect for businesses and daily transactions with unlimited operations.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-indigo-600 mb-4">
+                <svg class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-3">Fixed Deposits</h3>
+            <p class="text-gray-600 text-lg">Lock in high interest rates with our fixed deposit options.</p>
+        </div>
+    </div>
+</div>
+
+<div class="bg-gray-50 py-16 mb-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:text-center mb-16">
+            <h2 class="text-4xl font-extrabold text-gray-900">Account Management</h2>
+            <p class="mt-4 max-w-2xl text-2xl text-gray-500 lg:mx-auto">
+                View and manage all your accounts in one place
+            </p>
+        </div>
+
+        @if (Model.Accounts?.Any() == true)
+        {
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <ul role="list" class="divide-y divide-gray-200">
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <li>
+                            <div class="px-6 py-6 sm:px-8">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="ml-4">
+                                            <div class="text-lg font-medium text-indigo-600">
+                                                @account.AccountNumber
+                                            </div>
+                                            <div class="text-lg text-gray-500">
+                                                @account.AccountHolderName
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-6">
+                                        <div class="text-xl font-semibold text-gray-900">
+                                            @account.Balance.ToString("C")
+                                        </div>
+                                        <span class="inline-flex rounded-full px-4 py-2 text-lg font-semibold leading-5 
+                                            @(account.AccountType == AccountType.Savings ? "bg-green-100 text-green-800" : 
+                                              account.AccountType == AccountType.Checking ? "bg-blue-100 text-blue-800" : 
+                                              "bg-yellow-100 text-yellow-800")">
+                                            @account.AccountType
+                                        </span>
+                                        <div class="flex space-x-4">
+                                            <a href="/Account/Details/@account.Id" 
+                                               class="px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
+                                                Details
+                                            </a>
+                                            <a href="/Account/Edit/@account.Id" 
+                                               class="px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
+                                                Edit
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-16 bg-white rounded-lg shadow">
+                <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                <h3 class="mt-2 text-xl font-medium text-gray-900">No accounts</h3>
+                <p class="mt-1 text-lg text-gray-500">Get started by creating a new account.</p>
+                <div class="mt-8">
+                    <a href="/Account/Create" 
+                       class="inline-flex items-center px-8 py-4 border border-transparent rounded-md shadow-sm text-xl font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add Account
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
