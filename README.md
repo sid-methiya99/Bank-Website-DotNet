@@ -1,102 +1,108 @@
 # Bank Management System
 
-A modern and secure banking management system built with ASP.NET Core 8.0 and Tailwind CSS. This web application provides essential banking features including user authentication, account management, and a responsive user interface.
+A modern banking management system built with ASP.NET Core and Tailwind CSS, featuring secure user authentication, account management, transaction processing, and KYC document handling.
 
 ## Features
 
 - 🔐 Secure user authentication and authorization
-- 💼 Account management dashboard
-- 💰 Transaction history and fund transfers
+- 💳 Account management (create, view, and manage bank accounts)
+- 💸 Transaction processing (fund transfers, NEFT, RTGS)
+- 📄 KYC document upload and verification
 - 📱 Responsive design with modern UI
-- 🎨 Beautiful gradients and Tailwind CSS styling
-- 🔒 Anti-forgery token protection
-- 📄 Dynamic content rendering with Razor Pages
+- 🛡️ Anti-forgery protection and secure data handling
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Node.js](https://nodejs.org/) (Latest LTS version recommended)
-- [npm](https://www.npmjs.com/) (Comes with Node.js)
-- A code editor (Visual Studio Code, Visual Studio, or similar)
+- [Node.js](https://nodejs.org/) (v14 or later)
+- [MySQL Server](https://dev.mysql.com/downloads/mysql/) (v8.0 or later)
+- Code editor (Visual Studio Code, Visual Studio, or similar)
 
 ## Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/BankManagementSystem.git
-cd BankManagementSystem
-```
+   ```bash
+   git clone https://github.com/your-username/Bank-Website-DotNet.git
+   cd Bank-Website-DotNet
+   ```
 
-2. Install .NET dependencies:
-```bash
-dotnet restore
-```
+2. Restore .NET dependencies:
+   ```bash
+   dotnet restore
+   ```
 
 3. Install Node.js dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 
-4. Build Tailwind CSS:
-```bash
-npm run build:css
-```
+4. Create `appsettings.Development.json` in the project root and configure your database connection:
+   ```json
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "Server=localhost;Database=bankmanagement;User=your_username;Password=your_password;"
+     }
+   }
+   ```
 
-5. Update the database with migrations:
-```bash
-dotnet ef database update
-```
-
-## Configuration
-
-1. Update the connection string in `appsettings.json` to point to your database:
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=BankManagementSystem;Trusted_Connection=True;MultipleActiveResultSets=true"
-  }
-}
-```
+5. Apply database migrations:
+   ```bash
+   dotnet ef database update
+   ```
 
 ## Running the Application
 
 1. Start the development server:
-```bash
-dotnet watch run
-```
+   ```bash
+   dotnet run
+   ```
 
 2. In a separate terminal, watch for CSS changes:
-```bash
-npm run watch:css
-```
+   ```bash
+   npm run css:watch
+   ```
 
-The application will be available at `https://localhost:5001` or `http://localhost:5000`
-
-## Project Structure
-
-- `/Pages` - Razor Pages for the web interface
-- `/Models` - Data models and database entities
-- `/Data` - Database context and migrations
-- `/wwwroot` - Static files (CSS, JavaScript, images)
+3. Access the application at `http://localhost:5116`
 
 ## Development
 
-To modify the Tailwind CSS styles:
-1. Edit the styles in the source files
-2. Run `npm run build:css` to rebuild the CSS
-3. For development, use `npm run watch:css` to automatically rebuild on changes
+### Building CSS
 
-## Database Migrations
+- Build CSS once:
+  ```bash
+  npm run css:build
+  ```
 
-To create a new migration:
-```bash
-dotnet ef migrations add MigrationName
+- Watch for CSS changes:
+  ```bash
+  npm run css:watch
+  ```
+
+### Database Migrations
+
+- Create a new migration:
+  ```bash
+  dotnet ef migrations add MigrationName
+  ```
+
+- Update database:
+  ```bash
+  dotnet ef database update
+  ```
+
+## Project Structure
+
 ```
-
-To update the database:
-```bash
-dotnet ef database update
+BankManagementSystem/
+├── Data/                 # Database context and configurations
+├── Models/              # Data models
+├── Pages/               # Razor Pages
+│   ├── Account/         # Account management pages
+│   └── Shared/         # Shared layouts and components
+├── wwwroot/            # Static files
+│   ├── css/           # Compiled CSS
+│   └── uploads/       # User uploads (KYC documents)
+└── Services/           # Application services
 ```
 
 ## Security Features
@@ -105,19 +111,20 @@ dotnet ef database update
 - Anti-forgery token validation
 - Secure password hashing
 - HTTPS enforcement
-- XSS protection
+- File upload validation
+- SQL injection protection through Entity Framework Core
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
@@ -125,6 +132,6 @@ For support, please open an issue in the GitHub repository or contact the mainta
 
 ## Acknowledgments
 
-- ASP.NET Core team
-- Tailwind CSS team
-- All contributors to this project 
+- ASP.NET Core team for the amazing framework
+- Tailwind CSS team for the utility-first CSS framework
+- All contributors who have helped shape this project 
