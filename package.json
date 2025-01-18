@@ -2,7 +2,8 @@
     "name": "bankmanagementsystem",
     "version": "1.0.0",
     "scripts": {
-        "css:build": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/styles.css --watch"
+        "css:build": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/styles.css --minify",
+        "css:watch": "npx tailwindcss -i ./wwwroot/css/site.css -o ./wwwroot/css/styles.css --watch"
     },
     "devDependencies": {
         "tailwindcss": "^3.4.1"

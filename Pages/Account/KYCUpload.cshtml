@@ -1,0 +1,107 @@
+@page
+@model BankManagementSystem.Pages.Account.KYCUploadModel
+@{
+    ViewData["Title"] = "KYC Document Upload";
+}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">KYC Documents</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Aadhaar Card Section -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Aadhaar Card</h3>
+                @if (Model.AadhaarDocument != null)
+                {
+                    <div class="mb-4">
+                        <p class="text-gray-600">Document Number: @Model.AadhaarDocument.DocumentNumber</p>
+                        <p class="text-gray-600">Upload Date: @Model.AadhaarDocument.UploadDate.ToString("dd MMM yyyy")</p>
+                        <p class="text-gray-600">Status: 
+                            @if (Model.AadhaarDocument.IsVerified)
+                            {
+                                <span class="text-green-600">Verified</span>
+                            }
+                            else
+                            {
+                                <span class="text-yellow-600">Pending Verification</span>
+                            }
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="documentType" value="AADHAAR" />
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="aadhaarNumber">
+                                Aadhaar Number
+                            </label>
+                            <input type="text" name="documentNumber" id="aadhaarNumber" required
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                pattern="[0-9]{12}" title="Please enter valid 12-digit Aadhaar number">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="aadhaarFile">
+                                Upload Aadhaar Card (PDF/Image)
+                            </label>
+                            <input type="file" name="file" id="aadhaarFile" required accept=".pdf,.jpg,.jpeg,.png"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <button type="submit"
+                            class="bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 focus:outline-none focus:shadow-outline">
+                            Upload Aadhaar
+                        </button>
+                    </form>
+                }
+            </div>
+
+            <!-- PAN Card Section -->
+            <div class="bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">PAN Card</h3>
+                @if (Model.PanDocument != null)
+                {
+                    <div class="mb-4">
+                        <p class="text-gray-600">Document Number: @Model.PanDocument.DocumentNumber</p>
+                        <p class="text-gray-600">Upload Date: @Model.PanDocument.UploadDate.ToString("dd MMM yyyy")</p>
+                        <p class="text-gray-600">Status: 
+                            @if (Model.PanDocument.IsVerified)
+                            {
+                                <span class="text-green-600">Verified</span>
+                            }
+                            else
+                            {
+                                <span class="text-yellow-600">Pending Verification</span>
+                            }
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="documentType" value="PAN" />
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="panNumber">
+                                PAN Number
+                            </label>
+                            <input type="text" name="documentNumber" id="panNumber" required
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter valid 10-character PAN number">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="panFile">
+                                Upload PAN Card (PDF/Image)
+                            </label>
+                            <input type="file" name="file" id="panFile" required accept=".pdf,.jpg,.jpeg,.png"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <button type="submit"
+                            class="bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 focus:outline-none focus:shadow-outline">
+                            Upload PAN
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div> 

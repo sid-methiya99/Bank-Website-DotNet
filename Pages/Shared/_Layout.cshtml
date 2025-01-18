@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using BankManagementSystem.Models
+@using BankManagementSystem.Data
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -19,23 +24,32 @@
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             <a href="/Account/Dashboard" class="text-xl text-gray-700 hover:text-indigo-600">Dashboard</a>
+                            <a href="/Account/Transactions" class="text-xl text-gray-700 hover:text-indigo-600">Transactions</a>
                         }
                         <a href="/AboutUs" class="text-xl text-gray-700 hover:text-indigo-600">About Us</a>
                         <a href="/services" class="text-xl text-gray-700 hover:text-indigo-600">Services</a>
                         <a href="/contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
                     </div>
-                    <div class="hidden md:flex items-center space-x-6">
+                    <div class="hidden md:flex items-center">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
-                            <form method="post" action="/Account/Logout" class="inline">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="text-xl text-gray-700 hover:text-indigo-600">Logout</button>
-                            </form>
+                            var user = await UserManager.GetUserAsync(User);
+                            if (user != null)
+                            {
+                                var dbContext = Context.RequestServices.GetRequiredService<ApplicationDbContext>();
+                                var userProfile = await dbContext.UserProfiles.FirstOrDefaultAsync(up => up.UserId == user.Id);
+                                var firstName = userProfile?.FirstName ?? "User";
+                                <span class="text-xl text-gray-700">Hello, @firstName!</span>
+                                <form method="post" action="/Account/Logout" class="inline ml-6">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="text-xl text-gray-700 hover:text-indigo-600">Logout</button>
+                                </form>
+                            }
                         }
                         else
                         {
                             <a href="/Account/Login" class="text-xl text-gray-700 hover:text-indigo-600">Login</a>
-                            <a href="/Account/Register" class="text-xl bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">Register</a>
+                            <a href="/Account/Register" class="text-xl text-gray-700 hover:text-indigo-600 ml-6">Register</a>
                         }
                     </div>
                 </div>

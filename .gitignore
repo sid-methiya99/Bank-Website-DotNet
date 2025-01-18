@@ -1,17 +1,29 @@
 # .NET Core
 bin/
 obj/
+*.dll
+*.pdb
 *.user
-*.userosscache
 *.suo
-*.userprefs
-.vs/
+*.cache
+*.log
 
 # Node.js
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE files
+.vs/
+.vscode/
+*.swp
+*.swo
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
 # Build results
 [Dd]ebug/
@@ -30,21 +42,23 @@ msbuild.err
 msbuild.wrn
 
 # Visual Studio files
+*.user
+*.userosscache
+*.sln.docstates
 .vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# Rider
-.idea/
-
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
 
 # Tailwind CSS
-wwwroot/css/output.css 
+wwwroot/css/output.css
+
+# User uploads
+wwwroot/uploads/
+
+# Environment files
+*.env
+appsettings.Development.json
+appsettings.Production.json
+
+# Logs
+logs/
+*.log
+npm-debug.log* 

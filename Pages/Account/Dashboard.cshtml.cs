@@ -33,7 +33,7 @@ namespace BankManagementSystem.Pages.Account
             // Get the current user's accounts with user details
             UserAccounts = await _context.Accounts
                 .Include(a => a.User)
-                .Where(a => a.UserId == user.Id && a.IsActive)
+                .Where(a => a.UserId == user.Id && a.Status != "CLOSED")
                 .ToListAsync();
 
             return Page();

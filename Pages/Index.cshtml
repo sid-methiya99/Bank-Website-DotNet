@@ -66,51 +66,19 @@
             </p>
         </div>
 
-        @if (Model.Accounts?.Any() == true)
+        @if (Model.UserAccounts != null && Model.UserAccounts.Any())
         {
-            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                <ul role="list" class="divide-y divide-gray-200">
-                    @foreach (var account in Model.Accounts)
-                    {
-                        <li>
-                            <div class="px-6 py-6 sm:px-8">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <div class="ml-4">
-                                            <div class="text-lg font-medium text-indigo-600">
-                                                @account.AccountNumber
-                                            </div>
-                                            <div class="text-lg text-gray-500">
-                                                @account.AccountHolderName
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center space-x-6">
-                                        <div class="text-xl font-semibold text-gray-900">
-                                            @account.Balance.ToString("C")
-                                        </div>
-                                        <span class="inline-flex rounded-full px-4 py-2 text-lg font-semibold leading-5 
-                                            @(account.AccountType == AccountType.Savings ? "bg-green-100 text-green-800" : 
-                                              account.AccountType == AccountType.Checking ? "bg-blue-100 text-blue-800" : 
-                                              "bg-yellow-100 text-yellow-800")">
-                                            @account.AccountType
-                                        </span>
-                                        <div class="flex space-x-4">
-                                            <a href="/Account/Details/@account.Id" 
-                                               class="px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                                                Details
-                                            </a>
-                                            <a href="/Account/Edit/@account.Id" 
-                                               class="px-6 py-3 text-lg font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700">
-                                                Edit
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach (var account in Model.UserAccounts)
+                {
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold text-gray-900">@account.User.Email</h3>
+                        <p class="text-gray-600">Account No: @account.AccountNumber</p>
+                        <p class="text-gray-600">Type: @account.AccountType</p>
+                        <p class="text-gray-600">Balance: ₹@account.Balance.ToString("N2")</p>
+                        <p class="text-gray-600">Status: @account.Status</p>
+                    </div>
+                }
             </div>
         }
         else

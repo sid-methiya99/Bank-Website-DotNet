@@ -1,79 +1,63 @@
 @page
 @model BankManagementSystem.Pages.Account.DashboardModel
 @{
-    ViewData["Title"] = "Account Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="container mx-auto px-4 py-8">
-    <div class="bg-gradient-to-r from-indigo-600 to-indigo-800 rounded-lg shadow-lg p-6 mb-8">
-        <h1 class="text-3xl font-bold text-white mb-4">Account Dashboard</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white bg-opacity-20 rounded-lg p-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Total Accounts</h3>
-                <p class="text-2xl text-white">@Model.UserAccounts.Count</p>
-            </div>
-            <div class="bg-white bg-opacity-20 rounded-lg p-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Total Balance</h3>
-                <p class="text-2xl text-white">₹@Model.UserAccounts.Sum(a => a.Balance).ToString("N2")</p>
-            </div>
-            <div class="bg-white bg-opacity-20 rounded-lg p-4">
-                <h3 class="text-lg font-semibold text-white mb-2">Active Accounts</h3>
-                <p class="text-2xl text-white">@Model.UserAccounts.Count(a => a.IsActive)</p>
-            </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6 text-xl" role="alert">
+            <span class="block sm:inline">@TempData["SuccessMessage"]</span>
         </div>
-    </div>
+    }
 
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Accounts</h2>
-        <div class="overflow-x-auto">
-            <table class="min-w-full table-auto">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Account Number</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Account Type</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach (var account in Model.UserAccounts)
-                    {
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">@account.AccountNumber</div>
-                                <div class="text-sm text-gray-500">@account.AccountHolderName</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
-                                    @account.AccountType
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">₹@account.Balance.ToString("N2")</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if (account.IsActive)
-                                {
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Active
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                        Inactive
-                                    </span>
-                                }
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-4">View Details</a>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Transfer</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-8">Welcome to Your Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg p-6 text-white">
+                <h2 class="text-2xl font-semibold mb-2">Total Accounts</h2>
+                <p class="text-3xl font-bold">@Model.UserAccounts.Count()</p>
+            </div>
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 text-white">
+                <h2 class="text-2xl font-semibold mb-2">Total Balance</h2>
+                <p class="text-3xl font-bold">₹@Model.UserAccounts.Sum(a => a.Balance).ToString("N2")</p>
+            </div>
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-6 text-white">
+                <h2 class="text-2xl font-semibold mb-2">Active Accounts</h2>
+                <p class="text-3xl font-bold">@Model.UserAccounts.Count(a => a.Status == "ACTIVE")</p>
+            </div>
         </div>
+
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Your Accounts</h2>
+        
+        @if (Model.UserAccounts.Any())
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach (var account in Model.UserAccounts)
+                {
+                    <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-4">Account #@account.AccountNumber</h3>
+                        <div class="space-y-3 text-xl">
+                            <p class="text-gray-600">Type: @account.AccountType</p>
+                            <p class="text-gray-600">Balance: ₹@account.Balance.ToString("N2")</p>
+                            <p class="text-gray-600">Status: @account.Status</p>
+                        </div>
+                        <div class="mt-6 flex space-x-4">
+                            <a href="/Account/Details/@account.Id" class="text-xl bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700">View Details</a>
+                            <a href="/Account/Transactions" class="text-xl bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">Transfer</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-12">
+                <p class="text-2xl text-gray-600 mb-6">You don't have any accounts yet.</p>
+                <a href="/Account/Create" class="text-xl bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700">Open an Account</a>
+            </div>
+        }
     </div>
 </div> 

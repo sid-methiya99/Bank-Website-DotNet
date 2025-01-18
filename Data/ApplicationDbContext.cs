@@ -16,6 +16,7 @@ namespace BankManagementSystem.Data
         public DbSet<Transaction> Transactions { get; set; } = null!;
         public DbSet<UserProfile> UserProfiles { get; set; } = null!;
         public DbSet<FAQ> FAQs { get; set; } = null!;
+        public DbSet<KYCDocument> KYCDocuments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
