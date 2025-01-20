@@ -1,0 +1,180 @@
+PS D:\Bank-Website-DotNet-master\Bank-Website-DotNet-master> dotnet ef migrations remove
+Build started...
+Build succeeded.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='bankdb' AND TABLE_NAME='__EFMigrationsHistory';
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `MigrationId`, `ProductVersion`
+      FROM `__EFMigrationsHistory`
+      ORDER BY `MigrationId`;
+Removing migration '20250120130507_InitialMigration'.
+Reverting the model snapshot.
+Done.
+PS D:\Bank-Website-DotNet-master\Bank-Website-DotNet-master> dotnet ef dBuild started...
+Build succeeded.
+Dropping database 'bankdb' on server 'localhost'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+Successfully dropped database 'bankdb'.
+PS D:\Bank-Website-DotNet-master\Bank-Website-DotNet-master> dotnet ef migrations add InitialMigration
+Build started...
+Build succeeded.
+An operation was scaffolded that may result in the loss of data. Please 
+review the migration for accuracy.
+Done. To undo this action, use 'ef migrations remove'
+PS D:\Bank-Website-DotNet-master\Bank-Website-DotNet-master> dotnet ef database update
+Build started...
+Build succeeded.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE DATABASE `bankdb`;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `__EFMigrationsHistory` (
+          `MigrationId` varchar(150) CHARACTER SET utf8mb4 NOT NULL,
+          `ProductVersion` varchar(32) CHARACTER SET utf8mb4 NOT NULL,  
+          CONSTRAINT `PK___EFMigrationsHistory` PRIMARY KEY (`MigrationId`)
+      ) CHARACTER SET=utf8mb4;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='bankdb' AND TABLE_NAME='__EFMigrationsHistory';
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `MigrationId`, `ProductVersion`
+      FROM `__EFMigrationsHistory`
+      ORDER BY `MigrationId`;
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20250117174458_InitialCreate'.
+Applying migration '20250117174458_InitialCreate'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER DATABASE CHARACTER SET utf8mb4;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `Accounts` (
+          `Id` int NOT NULL AUTO_INCREMENT,
+          `AccountNumber` longtext CHARACTER SET utf8mb4 NOT NULL,      
+          `AccountHolderName` longtext CHARACTER SET utf8mb4 NOT NULL,  
+          `Balance` decimal(65,30) NOT NULL,
+          `CreatedDate` datetime(6) NOT NULL,
+          `AccountType` int NOT NULL,
+          CONSTRAINT `PK_Accounts` PRIMARY KEY (`Id`)
+      ) CHARACTER SET=utf8mb4;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+      VALUES ('20250117174458_InitialCreate', '8.0.1');
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20250117181439_AddBranchAndIFSCToAccount'.    
+Applying migration '20250117181439_AddBranchAndIFSCToAccount'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (46ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` MODIFY COLUMN `Balance` decimal(18,2) NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (44ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` MODIFY COLUMN `AccountNumber` varchar(12) CHARACTER SET utf8mb4 NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (41ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` ADD `Branch` longtext CHARACTER SET utf8mb4 NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (45ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` ADD `CustomerId` int NOT NULL DEFAULT 0;   
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (44ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` ADD `IFSC` longtext CHARACTER SET utf8mb4 NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (37ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` ADD `IsActive` tinyint(1) NOT NULL DEFAULT 
+FALSE;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `Customers` (
+          `Id` int NOT NULL AUTO_INCREMENT,
+          `FullName` longtext CHARACTER SET utf8mb4 NOT NULL,
+          `DateOfBirth` datetime(6) NOT NULL,
+          `MobileNumber` varchar(10) CHARACTER SET utf8mb4 NOT NULL,    
+          `Email` longtext CHARACTER SET utf8mb4 NOT NULL,
+          `AddressLine1` longtext CHARACTER SET utf8mb4 NOT NULL,       
+          `AddressLine2` longtext CHARACTER SET utf8mb4 NULL,
+          `City` longtext CHARACTER SET utf8mb4 NOT NULL,
+          `State` longtext CHARACTER SET utf8mb4 NOT NULL,
+          `PinCode` varchar(6) CHARACTER SET utf8mb4 NOT NULL,
+          `AadhaarNumber` varchar(12) CHARACTER SET utf8mb4 NOT NULL,   
+          `PanNumber` varchar(10) CHARACTER SET utf8mb4 NOT NULL,       
+          `AadhaarDocPath` longtext CHARACTER SET utf8mb4 NULL,
+          `PanDocPath` longtext CHARACTER SET utf8mb4 NULL,
+          `CreatedDate` datetime(6) NOT NULL,
+          `IsActive` tinyint(1) NOT NULL,
+          CONSTRAINT `PK_Customers` PRIMARY KEY (`Id`)
+      ) CHARACTER SET=utf8mb4;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (39ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX `IX_Accounts_CustomerId` ON `Accounts` (`CustomerId`);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (41ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` ADD CONSTRAINT `FK_Accounts_Customers_CustomerId` FOREIGN KEY (`CustomerId`) REFERENCES `Customers` (`Id`) ON DELETE RESTRICT;
+Applying migration '20250117201041_AddIdentityAndNewModels'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+      VALUES ('20250117181439_AddBranchAndIFSCToAccount', '8.0.1');     
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20250117201041_AddIdentityAndNewModels'.      
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (37ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` DROP FOREIGN KEY `FK_Accounts_Customers_CustomerId`;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      DROP TABLE `Customers`;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (38ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` DROP INDEX `IX_Accounts_CustomerId`;       
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (38ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` DROP COLUMN `CustomerId`;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (39ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` MODIFY COLUMN `AccountNumber` varchar(50) CHARACTER SET utf8mb4 NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (51ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` MODIFY COLUMN `AccountHolderName` varchar(100) CHARACTER SET utf8mb4 NOT NULL;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (45ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      ALTER TABLE `Accounts` ADD `UserId` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '';
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `AspNetRoles` (
+          `Id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+          `Name` varchar(256) CHARACTER SET utf8mb4 NULL,
+          `NormalizedName` varchar(256) CHARACTER SET utf8mb4 NULL,     
+          `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 NULL,       
+          CONSTRAINT `PK_AspNetRoles` PRIMARY KEY (`Id`)
+      ) CHARACTER SET=utf8mb4;
+Failed executing DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE `AspNetRoles` (
+    `Id` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `Name` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `NormalizedName` varchar(256) CHARACTER SET utf8mb4 NULL,
+    `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 NULL,
+    CONSTRAINT `PK_AspNetRoles` PRIMARY KEY (`Id`)
+) CHARACTER SET=utf8mb4;
+MySqlConnector.MySqlException (0x80004005): Specified key was too long; 
+max key length is 1000 bytes
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior 
+ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteNonQueryAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 309
+   at MySqlConnector.MySqlCommand.ExecuteNonQuery() in /_/src/MySqlConnector/MySqlCommand.cs:line 108
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQuery(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Migrations.MigrationCommand.ExecuteNonQuery(IRelationalConnection connection, IReadOnlyDictionary`2 parameterValues)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.Design.Internal.MigrationsOperations.UpdateDatabase(String targetMigration, String connectionString, String 
+contextType)
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.UpdateDatabaseImpl(String targetMigration, String connectionString, String contextType)
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.UpdateDatabase.<>c__DisplayClass0_0.<.ctor>b__0()
+   at Microsoft.EntityFrameworkCore.Design.OperationExecutor.OperationBase.Execute(Action action)
+Specified key was too long; max key length is 1000 bytes

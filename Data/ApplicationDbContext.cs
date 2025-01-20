@@ -22,6 +22,41 @@ namespace BankManagementSystem.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure string column lengths for Identity tables
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.Property(m => m.Email).HasMaxLength(127);
+                entity.Property(m => m.NormalizedEmail).HasMaxLength(127);
+                entity.Property(m => m.NormalizedUserName).HasMaxLength(127);
+                entity.Property(m => m.UserName).HasMaxLength(127);
+            });
+
+            modelBuilder.Entity<IdentityRole>(entity =>
+            {
+                entity.Property(m => m.Name).HasMaxLength(127);
+                entity.Property(m => m.NormalizedName).HasMaxLength(127);
+            });
+
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+            {
+                entity.Property(m => m.LoginProvider).HasMaxLength(127);
+                entity.Property(m => m.ProviderKey).HasMaxLength(127);
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+            {
+                entity.Property(m => m.UserId).HasMaxLength(127);
+                entity.Property(m => m.RoleId).HasMaxLength(127);
+            });
+
+            modelBuilder.Entity<IdentityUserToken<string>>(entity =>
+            {
+                entity.Property(m => m.UserId).HasMaxLength(127);
+                entity.Property(m => m.LoginProvider).HasMaxLength(127);
+                entity.Property(m => m.Name).HasMaxLength(127);
+            });
+
+            // Configure relationships
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.HasOne(a => a.User)

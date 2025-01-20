@@ -51,7 +51,8 @@ msbuild.wrn
 wwwroot/css/output.css
 
 # User uploads
-wwwroot/uploads/
+wwwroot/uploads/*
+!wwwroot/uploads/.gitkeep
 
 # Environment files
 *.env
