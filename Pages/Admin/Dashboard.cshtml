@@ -1,0 +1,155 @@
+@page
+@model BankManagementSystem.Pages.Admin.DashboardModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Statistics Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Total Users -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-indigo-100 rounded-full">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-500">Total Users</h3>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalUsers</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Accounts -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-full">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-500">Total Accounts</h3>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalAccounts</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending KYC -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-yellow-100 rounded-full">
+                        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-500">Pending KYC</h3>
+                        <p class="text-2xl font-bold text-gray-900">@Model.PendingKYC</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Transactions -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-purple-100 rounded-full">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-500">Total Transactions</h3>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalTransactions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <!-- Recent Users -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Recent Users</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach (var user in Model.RecentUsers)
+                            {
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">@user.UserProfile?.FirstName @user.UserProfile?.LastName</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">@user.Email</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <a href="/Admin/Users" class="text-indigo-600 hover:text-indigo-900">View all users →</a>
+                </div>
+            </div>
+
+            <!-- Pending Approvals -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Pending Approvals</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Details</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach (var approval in Model.PendingApprovals)
+                            {
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">@approval.Type</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">@approval.Details</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a href="@approval.ActionUrl" class="text-indigo-600 hover:text-indigo-900">Review</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <a href="/Admin/Approvals" class="text-indigo-600 hover:text-indigo-900">View all pending approvals →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <a href="/Admin/Users" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Manage Users</h3>
+                <p class="text-gray-600">View and manage user accounts, roles, and permissions.</p>
+            </a>
+            <a href="/Admin/KYC" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">KYC Verification</h3>
+                <p class="text-gray-600">Review and verify KYC documents submitted by users.</p>
+            </a>
+            <a href="/Admin/Transactions" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Transaction History</h3>
+                <p class="text-gray-600">Monitor and manage all banking transactions.</p>
+            </a>
+        </div>
+    </div>
+</div> 

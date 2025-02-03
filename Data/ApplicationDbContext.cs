@@ -81,7 +81,7 @@ namespace BankManagementSystem.Data
             modelBuilder.Entity<UserProfile>(entity =>
             {
                 entity.HasOne(up => up.User)
-                    .WithOne()
+                    .WithOne(u => u.UserProfile)
                     .HasForeignKey<UserProfile>(up => up.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
             });

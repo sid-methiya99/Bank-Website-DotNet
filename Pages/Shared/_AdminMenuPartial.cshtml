@@ -1,0 +1,26 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<BankManagementSystem.Models.ApplicationUser> SignInManager
+@inject UserManager<BankManagementSystem.Models.ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <div class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex space-x-8">
+                        <a href="/Admin/Users" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 @(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("/Admin/Users") == true ? "border-indigo-500" : "border-transparent hover:border-gray-300")">
+                            Users
+                        </a>
+                        <a href="/Admin/Accounts" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 @(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("/Admin/Accounts") == true ? "border-indigo-500" : "border-transparent hover:border-gray-300")">
+                            Accounts
+                        </a>
+                        <a href="/Admin/KYC" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 @(ViewContext.RouteData.Values["Page"]?.ToString()?.Contains("/Admin/KYC") == true ? "border-indigo-500" : "border-transparent hover:border-gray-300")">
+                            KYC
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+} 

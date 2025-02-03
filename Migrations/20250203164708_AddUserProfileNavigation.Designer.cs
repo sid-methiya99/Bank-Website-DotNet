@@ -3,6 +3,7 @@ using System;
 using BankManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankManagementSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250203164708_AddUserProfileNavigation")]
+    partial class AddUserProfileNavigation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,6 +122,9 @@ namespace BankManagementSystem.Migrations
                         .HasMaxLength(127)
                         .HasColumnType("varchar(127)");
 
+                    b.Property<int?>("UserProfileId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -127,6 +133,8 @@ namespace BankManagementSystem.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -472,6 +480,15 @@ namespace BankManagementSystem.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BankManagementSystem.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("BankManagementSystem.Models.UserProfile", "UserProfile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId");
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("BankManagementSystem.Models.KYCDocument", b =>
                 {
                     b.HasOne("BankManagementSystem.Models.ApplicationUser", "User")
@@ -505,7 +522,7 @@ namespace BankManagementSystem.Migrations
             modelBuilder.Entity("BankManagementSystem.Models.UserProfile", b =>
                 {
                     b.HasOne("BankManagementSystem.Models.ApplicationUser", "User")
-                        .WithOne("UserProfile")
+                        .WithOne()
                         .HasForeignKey("BankManagementSystem.Models.UserProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -562,11 +579,6 @@ namespace BankManagementSystem.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BankManagementSystem.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("UserProfile");
                 });
 #pragma warning restore 612, 618
         }

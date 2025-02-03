@@ -10,6 +10,91 @@ A modern banking management system built with ASP.NET Core and Tailwind CSS, fea
 - 📄 KYC document upload and verification
 - 📱 Responsive design with modern UI
 - 🛡️ Anti-forgery protection and secure data handling
+- 👨‍💼 Admin dashboard for system management
+
+## Admin Dashboard
+
+### Accessing Admin Panel
+- URL: `/admin` or `/Admin/Login`
+- Default Admin Credentials:
+  - Email: admin@bank.com
+  - Password: Admin@123
+
+### Admin Features
+1. **User Management** (`/Admin/Users`)
+   - View all users
+   - Activate/Deactivate users
+   - View user profiles and details
+   - Filter users by role and status
+
+2. **Account Management** (`/Admin/Accounts`)
+   - View all bank accounts
+   - Activate/Suspend accounts
+   - Monitor account balances
+   - Filter accounts by status
+
+3. **KYC Management** (`/Admin/KYC`)
+   - Review KYC documents
+   - Approve/Reject KYC submissions
+   - View user verification status
+   - Download submitted documents
+
+### Admin Security
+- Separate admin login portal
+- Role-based access control
+- Audit logging for admin actions
+- Secure session management
+
+## Database Migration Steps
+
+### For First-Time Setup
+1. Ensure MySQL server is running
+2. Update connection string in `appsettings.json`
+3. Run migrations:
+   ```bash
+   dotnet ef database update
+   ```
+
+### Updating Existing Database
+1. Backup your existing database
+   ```bash
+   mysqldump -u your_username -p bankmanagement > backup.sql
+   ```
+
+2. Update to latest code
+   ```bash
+   git pull origin main
+   ```
+
+3. Check pending migrations
+   ```bash
+   dotnet ef migrations list
+   ```
+
+4. Apply pending migrations
+   ```bash
+   dotnet ef database update
+   ```
+
+### Troubleshooting Database Issues
+1. If database is corrupted or needs reset:
+   ```bash
+   # Drop existing database
+   dotnet ef database drop --force
+   
+   # Recreate and apply all migrations
+   dotnet ef database update
+   ```
+
+2. If you need to roll back to a specific migration:
+   ```bash
+   dotnet ef database update MigrationName
+   ```
+
+3. To remove last migration (if not applied to database):
+   ```bash
+   dotnet ef migrations remove
+   ```
 
 ## Prerequisites
 
@@ -36,7 +121,7 @@ A modern banking management system built with ASP.NET Core and Tailwind CSS, fea
    npm install
    ```
 
-4. Create `appsettings.Development.json` in the project root and configure your database connection:
+4. Create `appsettings.json` in the project root and configure your database connection:
    ```json
    {
      "ConnectionStrings": {

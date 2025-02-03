@@ -1,0 +1,112 @@
+@page "{id:int}"
+@model BankManagementSystem.Pages.Admin.KYC.ReviewModel
+@{
+    ViewData["Title"] = "Review KYC Document";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            @if (Model.Document != null)
+            {
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Review KYC Document</h2>
+                    
+                    <!-- Document Details -->
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <p class="text-gray-600 mb-1">Document Type</p>
+                            <p class="text-xl font-semibold text-gray-900">@Model.Document.DocumentType</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 mb-1">Document Number</p>
+                            <p class="text-xl font-semibold text-gray-900">@Model.Document.DocumentNumber</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 mb-1">Upload Date</p>
+                            <p class="text-xl font-semibold text-gray-900">@Model.Document.UploadDate.ToString("dd MMM yyyy HH:mm")</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 mb-1">Status</p>
+                            <p class="text-xl font-semibold">
+                                @if (Model.Document.IsVerified)
+                                {
+                                    <span class="text-green-600">Verified</span>
+                                }
+                                else
+                                {
+                                    <span class="text-yellow-600">Pending Verification</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- User Details -->
+                    <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">User Information</h3>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <p class="text-gray-600 mb-1">Name</p>
+                                <p class="text-lg font-semibold text-gray-900">@Model.UserProfile?.FirstName @Model.UserProfile?.LastName</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 mb-1">Email</p>
+                                <p class="text-lg font-semibold text-gray-900">@Model.Document.User?.Email</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 mb-1">Phone</p>
+                                <p class="text-lg font-semibold text-gray-900">@Model.UserProfile?.PhoneNumber</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 mb-1">Address</p>
+                                <p class="text-lg font-semibold text-gray-900">@Model.UserProfile?.Address</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document Preview -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Document Preview</h3>
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            @if (Model.Document.FilePath.EndsWith(".pdf"))
+                            {
+                                <iframe src="/@Model.Document.FilePath" class="w-full h-96 rounded-lg"></iframe>
+                            }
+                            else
+                            {
+                                <img src="/@Model.Document.FilePath" alt="KYC Document" class="max-w-full h-auto rounded-lg">
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    @if (!Model.Document.IsVerified)
+                    {
+                        <div class="flex justify-end space-x-4">
+                            <form method="post" asp-page-handler="Reject">
+                                <input type="hidden" name="id" value="@Model.Document.Id">
+                                <button type="submit" class="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                                    Reject Document
+                                </button>
+                            </form>
+                            <form method="post" asp-page-handler="Approve">
+                                <input type="hidden" name="id" value="@Model.Document.Id">
+                                <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                    Approve Document
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-gray-600">Document not found.</p>
+            }
+
+            <div class="mt-6">
+                <a href="/Admin/KYC" class="text-indigo-600 hover:text-indigo-900">← Back to KYC List</a>
+            </div>
+        </div>
+    </div>
+</div> 
