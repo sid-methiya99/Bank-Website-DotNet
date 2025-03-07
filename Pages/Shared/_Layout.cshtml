@@ -18,20 +18,47 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-24">
                     <div class="flex items-center">
-                        <a href="/" class="text-3xl font-bold text-indigo-600">Finances.</a>
-                    </div>
-                    <div class="hidden md:flex items-center space-x-12">
-                        <a href="/" class="text-xl text-gray-700 hover:text-indigo-600">Home</a>
-                        @if (User.Identity?.IsAuthenticated == true)
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
                         {
-                            <a href="/Account/Dashboard" class="text-xl text-gray-700 hover:text-indigo-600">Dashboard</a>
-                            <a href="/Account/Transactions" class="text-xl text-gray-700 hover:text-indigo-600">Transactions</a>
+                            <a href="/Admin/Users" class="text-3xl font-bold text-indigo-600">Finances.</a>
                         }
-                        <a href="/AboutUs" class="text-xl text-gray-700 hover:text-indigo-600">About Us</a>
-                        <a href="/services" class="text-xl text-gray-700 hover:text-indigo-600">Services</a>
-                        <a href="/contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
+                        else
+                        {
+                            <a href="/" class="text-3xl font-bold text-indigo-600">Finances.</a>
+                        }
                     </div>
-                    <div class="hidden md:flex items-center">
+                    <div class="hidden md:flex items-center space-x-8">
+                        @{
+                            var isAdminPage = Context.Request.Path.StartsWithSegments("/Admin");
+                        }
+                        @if (!isAdminPage)
+                        {
+                            <a href="/" class="text-xl text-gray-700 hover:text-indigo-600">Home</a>
+                            @if (User.Identity?.IsAuthenticated == true && !User.IsInRole("Admin"))
+                            {
+                                <a href="/Account/Dashboard" class="text-xl text-gray-700 hover:text-indigo-600">Dashboard</a>
+                                <a href="/Account/Transactions" class="text-xl text-gray-700 hover:text-indigo-600">Transactions</a>
+                                <a href="/Account/Feedback" class="text-xl text-gray-700 hover:text-indigo-600">Feedback</a>
+                                <a href="/AboutUs" class="text-xl text-gray-700 hover:text-indigo-600">About Us</a>
+                                <a href="/services" class="text-xl text-gray-700 hover:text-indigo-600">Services</a>
+                                <a href="/contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
+                            }
+                            @if (!User.Identity?.IsAuthenticated == true)
+                            {
+                                <a href="/AboutUs" class="text-xl text-gray-700 hover:text-indigo-600">About Us</a>
+                                <a href="/services" class="text-xl text-gray-700 hover:text-indigo-600">Services</a>
+                                <a href="/contact" class="text-xl text-gray-700 hover:text-indigo-600">Contact</a>
+                            }
+                        }
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+                        {
+                            <a href="/Admin/Users" class="text-xl text-gray-700 hover:text-indigo-600">Users</a>
+                            <a href="/Admin/Accounts" class="text-xl text-gray-700 hover:text-indigo-600">Accounts</a>
+                            <a href="/Admin/KYC" class="text-xl text-gray-700 hover:text-indigo-600">KYC</a>
+                            <a href="/Admin/Feedbacks" class="text-xl text-gray-700 hover:text-indigo-600">Feedbacks</a>
+                        }
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
                             var user = await UserManager.GetUserAsync(User);
@@ -39,9 +66,9 @@
                             {
                                 var dbContext = Context.RequestServices.GetRequiredService<ApplicationDbContext>();
                                 var userProfile = await dbContext.UserProfiles.FirstOrDefaultAsync(up => up.UserId == user.Id);
-                                var firstName = userProfile?.FirstName ?? "User";
+                                var firstName = isAdminPage ? "System" : (userProfile?.FirstName ?? "User");
                                 <span class="text-xl text-gray-700">Hello, @firstName!</span>
-                                <form method="post" action="/Account/Logout" class="inline ml-6">
+                                <form method="post" action="/Account/Logout" class="inline">
                                     @Html.AntiForgeryToken()
                                     <button type="submit" class="text-xl text-gray-700 hover:text-indigo-600">Logout</button>
                                 </form>

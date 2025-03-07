@@ -17,6 +17,7 @@ namespace BankManagementSystem.Data
         public DbSet<UserProfile> UserProfiles { get; set; } = null!;
         public DbSet<FAQ> FAQs { get; set; } = null!;
         public DbSet<KYCDocument> KYCDocuments { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

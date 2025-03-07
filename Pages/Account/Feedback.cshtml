@@ -1,0 +1,63 @@
+@page
+@model BankManagementSystem.Pages.Account.FeedbackModel
+@{
+    ViewData["Title"] = "Submit Feedback";
+}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Submit Feedback</h2>
+                <p class="text-lg text-gray-600">We value your feedback to improve our services</p>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-md text-lg">
+                    @Model.SuccessMessage
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-md text-lg">
+                    @Model.ErrorMessage
+                </div>
+            }
+
+            <form method="post" class="space-y-8">
+                <div>
+                    <label asp-for="FeedbackInput.Subject" class="block text-xl font-medium text-gray-700 mb-2">Subject</label>
+                    <div class="mt-1">
+                        <input asp-for="FeedbackInput.Subject" 
+                               class="appearance-none block w-full px-4 py-3 text-lg border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                               placeholder="Brief subject of your feedback">
+                    </div>
+                    <span asp-validation-for="FeedbackInput.Subject" class="text-base text-red-600"></span>
+                </div>
+
+                <div>
+                    <label asp-for="FeedbackInput.Message" class="block text-xl font-medium text-gray-700 mb-2">Message</label>
+                    <div class="mt-1">
+                        <textarea asp-for="FeedbackInput.Message" rows="6"
+                                  class="appearance-none block w-full px-4 py-3 text-lg border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                  placeholder="Please provide your detailed feedback"></textarea>
+                    </div>
+                    <span asp-validation-for="FeedbackInput.Message" class="text-base text-red-600"></span>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                            class="w-full flex justify-center py-3 px-6 border border-transparent rounded-md shadow-sm text-xl font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        Submit Feedback
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+} 
